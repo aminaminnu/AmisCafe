@@ -43,15 +43,14 @@ The system supports login functionality and basic error handling for orders and 
 
 ## Screenshots
 
-**Menu Page:**  
-![Menu Page](assets/screenshots/menu-page.png)  
+**Menu Page:**   
 ![Menu Page](assets/screenshots/menu-page1.png)  
 ![Menu Page](assets/screenshots/menu-page2.png)  
-![Menu Page](assets/screenshots/menu-page3.png)  
-![Menu Page](assets/screenshots/menu-page4.png)  
+![Menu Page](assets/screenshots/menu-page3.png)   
 
 **Cart Page:**  
 ![Cart Page](assets/screenshots/cart-page.png)  
+![Cart Page](assets/screenshots/cart-page2.png)  
 
 **Checkout Flow:**  
 ![Checkout](assets/screenshots/checkout-page.png)  
