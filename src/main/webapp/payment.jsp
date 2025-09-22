@@ -114,7 +114,12 @@
                     <input type="hidden" name="menuItemId" value="${cart.menuItem.id}" />
                     <input type="hidden" name="quantity" value="${cart.quantity}" />
                 </c:forEach>
-
+  
+         <!-- Delivery Address -->
+        <label>Delivery Address:</label>
+        <textarea name="deliveryAddress" rows="3" placeholder="Enter full delivery address" required>${deliveryAddress != null ? deliveryAddress : ''}</textarea>
+  
+  
                 <div class="payment-options">
                     <label><input type="radio" name="paymentMethod" value="UPI" required> UPI</label><br>
                     <label><input type="radio" name="paymentMethod" value="Card"> Credit/Debit Card</label><br>

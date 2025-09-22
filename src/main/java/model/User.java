@@ -24,14 +24,17 @@ public class User {
 
     private String role; // e.g., "ADMIN", "CUSTOMER"
 
+    private String deliveryAddress; // ✅ new field for user's default address
+
     public User() {}
 
-    public User(int id, String name, String email, String password, String role) {
+    public User(int id, String name, String email, String password, String role, String deliveryAddress) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.deliveryAddress = deliveryAddress;
     }
 
     // getters & setters
@@ -50,9 +53,13 @@ public class User {
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 
+    public String getDeliveryAddress() { return deliveryAddress; }
+    public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
+
     @Override
     public String toString() {
         return "User [id=" + id + ", name=" + name +
-               ", email=" + email + ", role=" + role + "]";
+               ", email=" + email + ", role=" + role +
+               ", deliveryAddress=" + deliveryAddress + "]";
     }
 }

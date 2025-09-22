@@ -19,6 +19,8 @@ public class Cart {
 
     private int quantity;
 
+    private String deliveryAddress; // <-- NEW FIELD
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
@@ -29,10 +31,11 @@ public class Cart {
 
     public Cart() {}
 
-    public Cart(User user, MenuItem menuItem, int quantity) {
+    public Cart(User user, MenuItem menuItem, int quantity, String deliveryAddress) {
         this.user = user;
         this.menuItem = menuItem;
         this.quantity = quantity;
+        this.deliveryAddress = deliveryAddress;
     }
 
     // Getters & Setters
@@ -41,6 +44,9 @@ public class Cart {
 
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
+
+    public String getDeliveryAddress() { return deliveryAddress; }
+    public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }

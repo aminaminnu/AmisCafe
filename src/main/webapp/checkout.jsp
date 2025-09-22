@@ -64,6 +64,11 @@
                 <input type="hidden" name="menuItemId" value="${cart.menuItem.id}" />
             </div>
         </c:forEach>
+        
+         <!-- Add Delivery Address field here -->
+         <label>Delivery Address:</label>
+         <textarea name="deliveryAddress" rows="3" placeholder="Enter full delivery address" required>${deliveryAddress != null ? deliveryAddress : ''}</textarea>
+        
 
         <p class="grand-total">Grand Total: ₹<fmt:formatNumber value="${grandTotal}" minFractionDigits="2" maxFractionDigits="2"/></p>
 

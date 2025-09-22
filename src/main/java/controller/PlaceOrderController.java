@@ -26,6 +26,7 @@ public class PlaceOrderController extends HttpServlet {
     private MenuService menuService = new MenuServiceImpl();
     private OrderService orderService = new OrderServiceImpl();
 
+    // ✅ Handle GET requests
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
@@ -37,20 +38,28 @@ public class PlaceOrderController extends HttpServlet {
         User user = (User) session.getAttribute("user");
         String path = request.getServletPath();
 
-        if ("/myOrders".equals(path)) {
-            try {
-                List<Order> orders = orderService.getOrdersByUserId(user.getId());
-                request.setAttribute("orders", orders);
-                request.getRequestDispatcher("myOrders.jsp").forward(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-                response.sendRedirect("menu.jsp?error=ServerError");
-            }
-        } else {
-            response.sendRedirect("menu.jsp");
+        switch (path) {
+            case "/myOrders":
+                try {
+                    List<Order> orders = orderService.getOrdersByUserId(user.getId());
+                    request.setAttribute("orders", orders);
+                    request.getRequestDispatcher("myOrders.jsp").forward(request, response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    response.sendRedirect("menu.jsp?error=ServerError");
+                }
+                break;
+
+            case "/orderNow":
+                showOrderPage(request, response, user);
+                break;
+
+            default:
+                response.sendRedirect("menu.jsp");
         }
     }
 
+    // ✅ Handle POST requests (place order)
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
@@ -62,39 +71,52 @@ public class PlaceOrderController extends HttpServlet {
         User user = (User) session.getAttribute("user");
         String path = request.getServletPath();
 
+        if ("/placeOrderSubmit".equals(path)) {
+            placeOrder(request, response, user);
+        } else {
+            response.sendRedirect("menu.jsp");
+        }
+    }
+
+    // 🔹 Show Order Page (Order Now)
+    private void showOrderPage(HttpServletRequest request, HttpServletResponse response, User user) throws ServletException, IOException {
         try {
-            if ("/orderNow".equals(path)) {
-                // ✅ Load order.jsp with menuItem
-                int menuItemId = Integer.parseInt(request.getParameter("menuItemId"));
-                MenuItem menuItem = menuService.getMenuItemById(menuItemId);
+            int menuItemId = Integer.parseInt(request.getParameter("menuItemId"));
+            MenuItem menuItem = menuService.getMenuItemById(menuItemId);
 
-                if (menuItem == null) {
-                    response.sendRedirect("menu.jsp?error=MenuItemNotFound");
-                    return;
-                }
-
-                int quantity = 1;
-                String qtyStr = request.getParameter("quantity");
-                if (qtyStr != null && !qtyStr.isEmpty()) {
-                    quantity = Integer.parseInt(qtyStr);
-                }
-
-                request.setAttribute("menuItem", menuItem);
-                request.setAttribute("quantity", quantity);
-                request.getRequestDispatcher("order.jsp").forward(request, response);
-                return; // important
+            if (menuItem == null) {
+                response.sendRedirect("menu.jsp?error=MenuItemNotFound");
+                return;
             }
 
-            // ✅ Place order submission
+            int quantity = 1;
+            String qtyStr = request.getParameter("quantity");
+            if (qtyStr != null && !qtyStr.isEmpty()) {
+                quantity = Integer.parseInt(qtyStr);
+            }
+
+            request.setAttribute("menuItem", menuItem);
+            request.setAttribute("quantity", quantity);
+            request.setAttribute("userAddress", user.getDeliveryAddress());
+            request.getRequestDispatcher("order.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
+            response.sendRedirect("menu.jsp?error=InvalidInput");
+        }
+    }
+
+    // 🔹 Place Order
+    private void placeOrder(HttpServletRequest request, HttpServletResponse response, User user) throws ServletException, IOException {
+        try {
             int menuItemId = Integer.parseInt(request.getParameter("menuItemId"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
-            String paymentMethod = request.getParameter("paymentMethod");
             String deliveryAddress = request.getParameter("deliveryAddress");
+            String paymentMethod = request.getParameter("paymentMethod");
 
             if (quantity <= 0) {
                 response.sendRedirect("menu.jsp?error=InvalidQuantity");
                 return;
             }
+
             if (deliveryAddress == null || deliveryAddress.trim().isEmpty()) {
                 request.setAttribute("error", "Please enter delivery address.");
                 request.setAttribute("menuItem", menuService.getMenuItemById(menuItemId));
@@ -108,10 +130,11 @@ public class PlaceOrderController extends HttpServlet {
                 response.sendRedirect("menu.jsp?error=MenuItemNotFound");
                 return;
             }
+
             if (paymentMethod == null || paymentMethod.isEmpty()) {
+                request.setAttribute("error", "Please select a payment method.");
                 request.setAttribute("menuItem", menuItem);
                 request.setAttribute("quantity", quantity);
-                request.setAttribute("error", "Please select a payment method.");
                 request.getRequestDispatcher("order.jsp").forward(request, response);
                 return;
             }
@@ -138,6 +161,4 @@ public class PlaceOrderController extends HttpServlet {
             response.sendRedirect("menu.jsp?error=ServerError");
         }
     }
-
-
 }

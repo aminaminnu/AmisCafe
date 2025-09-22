@@ -195,22 +195,17 @@
                     <c:choose>
                         <c:when test="${sessionScope.user != null}">
                             <div class="card-actions">
-                                <form action="${pageContext.request.contextPath}/placeOrderSubmit" method="post">
-                                    <input type="hidden" name="menuItemId" value="${item.id}" />
-                                    <input type="hidden" name="cuisine" value="${param.cuisine}" />
-                                    <input type="hidden" name="type" value="${param.type}" />
-                                    
-                                    <input type="number" name="quantity" value="1" min="1" required />
-                                    <input type="hidden" name="paymentMethod" value="COD" />
-                                    <input type="hidden" name="deliveryAddress" value="Default Address" />
-                                    <button type="submit" class="btn">Order Now</button>
-                                </form>
-
-                                <form action="addToCart" method="post">
-                                    <input type="hidden" name="menuItemId" value="${item.id}" />
-                                    <input type="hidden" name="quantity" value="1" />
-                                    <button type="submit" class="btn btn-addcart">Add to Cart</button>
-                                </form>
+                               <form action="${pageContext.request.contextPath}/orderNow" method="get">
+    <input type="hidden" name="menuItemId" value="${item.id}" />
+    <input type="number" name="quantity" value="1" min="1" required />
+    <button type="submit" class="btn">Order Now</button>
+</form>
+                               
+                              <form action="addToCart" method="post">
+    <input type="hidden" name="menuItemId" value="${item.id}" />
+    <input type="hidden" name="quantity" value="1" />
+    <button type="submit" class="btn btn-addcart">Add to Cart</button>
+</form>
                             </div>
                         </c:when>
                         <c:otherwise>

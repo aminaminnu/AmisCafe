@@ -42,6 +42,7 @@ public class UserController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String role = request.getParameter("role");
+        String deliveryAddress = request.getParameter("deliveryAddress"); // ✅ new field
 
         if (role == null || role.isEmpty()) {
             role = "USER";
@@ -52,6 +53,7 @@ public class UserController extends HttpServlet {
         user.setEmail(email);
         user.setPassword(password);
         user.setRole(role);
+        user.setDeliveryAddress(deliveryAddress); // ✅ set address
 
         boolean isSaved = userDao.saveUser(user);
 

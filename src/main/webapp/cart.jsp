@@ -123,13 +123,7 @@
                     <input type="hidden" name="quantity" value="${cart.quantity}" />
                 </c:forEach>
 
-                <label>Select Payment Method:</label>
-                <select name="paymentMethod" required>
-                    <option value="">--Choose--</option>
-                    <option value="Cash">Cash</option>
-                    <option value="Card">Card</option>
-                    <option value="UPI">UPI</option>
-                </select>
+               
                 <button type="submit" class="btn">Checkout</button>
             </form>
         </div>
