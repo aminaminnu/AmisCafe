@@ -58,7 +58,7 @@ The system supports login functionality and basic error handling for orders and 
 ![Checkout](assets/screenshots/amisbill.png)  
 
 **Table Booking Page:**  
-![Booking Page](assets/amisbooking.png )  
+![Booking Page](assets/screenshots/amisbooking.png )  
 
 ---
 
