@@ -44,19 +44,21 @@ The system supports login functionality and basic error handling for orders and 
 ## Screenshots
 
 **Menu Page:**   
-![Menu Page](assets/screenshots/menu-page1.png)  
-![Menu Page](assets/screenshots/menu-page2.png)  
-![Menu Page](assets/screenshots/menu-page3.png)   
+![Menu Page](assets/screenshots/amismenu1.png)  
+![Menu Page](assets/screenshots/amismenu2.png)  
+![Menu Page](assets/screenshots/amismenu3.png)   
 
-**Cart Page:**  
-![Cart Page](assets/screenshots/cart-page.png)  
-![Cart Page](assets/screenshots/cart-page2.png)  
+**Cart Page & Order:**  
+![Cart Page](assets/screenshots/amiscart1.png)  
+![Cart Page](assets/screenshots/amiscart2.png)  
+![Cart Page](assets/screenshots/amiscart2.png)  
 
-**Checkout Flow:**  
-![Checkout](assets/screenshots/checkout-page.png)  
+**Checkout Flow & Payment:**  
+![Checkout](assets/screenshots/checkout.png)  
+![Checkout](assets/screenshots/amisbill.png)  
 
 **Table Booking Page:**  
-![Booking Page](assets/screenshots/booking-page.png)  
+![Booking Page](assets/amisbooking-page.png)  
 
 ---
 
